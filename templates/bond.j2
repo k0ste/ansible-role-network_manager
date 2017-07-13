@@ -1,0 +1,16 @@
+{% if item.bonding_master is defined and item.bonding_master == 'yes' %}
+{{ 'BONDING_MASTER' + '=\"' + item.bonding_master + '\"' }}
+{% endif %}
+{% if item.bonding_options is defined and item.bonding_options != '' %}
+{% for k,v in item.bonding_options.items() %}
+{% if loop.first %}
+{{ 'BONDING_OPTIONS' + '=\"' -}}
+{% endif %}
+{{ k + '=' + v -}}
+{% if loop.last %}
+{{ '\"' }}
+{% else %}
+{{ ' ' -}}
+{% endif %}
+{% endfor %}
+{% endif %}

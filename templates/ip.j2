@@ -1,0 +1,17 @@
+{% if item.address is defined and item.address != '' %}
+{% if item.address is string and item.address | ipaddr('host/prefix') %}
+{{ 'IPADDR' + '=\"' + item.address + '\"' }}
+{% elif item.address is sequence %}
+{% for addr in item.address %}
+{% if addr | ipaddr('host/prefix') %}
+{{ 'IPADDR' ~ loop.index ~ '=\"' ~ addr ~ '\"' }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if item.gateway is defined and item.gateway | ipaddr('host') %}
+{{ 'GATEWAY' + '=\"' + item.gateway + '\"' }}
+{% endif %}
+{% if item.dns is defined and item.dns | ipaddr('host') %}
+{{ 'DNS' + '=\"' + item.dns + '\"' }}
+{% endif %}

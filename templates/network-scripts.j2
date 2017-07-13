@@ -1,0 +1,10 @@
+{{ '## ' ~ 'ifcfg-' ~ item.interface }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% include 'generic.j2' -%}
+{% if item.address is defined %}{%- include 'ip.j2' -%}{% endif %}
+{% if item.vlan is defined and item.vlan == 'yes' %}{%- include '8021q.j2' -%}
+{% elif item.type is defined and item.type == 'Bond' %}{%- include 'bond.j2' -%}
+{% elif item.type in ['GRE', 'IPIP', 'IPIP6'] %}{%- include 'tunnel.j2' -%}
+{% endif %}

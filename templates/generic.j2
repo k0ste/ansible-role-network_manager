@@ -1,0 +1,20 @@
+{% if item.description is defined and item.description != '' %}
+{{ 'NAME' ~ '=\"' ~ item.description ~ '\"' }}
+{% endif %}
+{{ 'DEVICE' + '=\"' + item.interface + '\"' }}
+{{ 'TYPE' + '=\"' + item.type + '\"' }}
+{% if item.onboot is defined and item.onboot in ['yes', 'no'] %}
+{{ 'ONBOOT' ~ '=\"' ~ item.onboot ~ '\"' }}
+{% endif %}
+{% if item.bootproto is defined and item.bootproto in ['none', 'dhcp', 'bootp'] %}
+{{ 'BOOTPROTO' ~ '=\"' ~ item.bootproto ~ '\"' }}
+{% endif %}
+{% if item.nm_controlled is defined and item.nm_controlled in ['yes', 'no'] %}
+{{ 'NM_CONTROLLED' ~ '=\"' ~ item.nm_controlled ~ '\"' }}
+{% endif %}
+{% if item.type is defined and item.type in ['xDSL', 'Modem'] %}
+{{ 'ETH' ~ '=\"' ~ item.physdev ~ '\"' }}
+{% endif %}
+{% if item.mtu is defined and item.mtu != '' %}
+{{ 'MTU' ~ '=\"' ~ item.mtu ~ '\"' }}
+{% endif %}
