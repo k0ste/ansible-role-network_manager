@@ -18,6 +18,7 @@ Link types supported
 * vlan (802.1q);
 * pppoe;
 * bond;
+* tunnel (ipip, gre);
 
 Extra
 -----------
@@ -33,6 +34,13 @@ Example configuration
 
 ```yaml
 ---
+# Enable 'network' service.
+network_scripts_enable: 'true'
+# Restart 'network' service. May be dangerous!
+network_scripts_restart: 'false'
+# Deploy global settings
+network_scripts_deploy_global: 'true'
+
 network_scripts_global:
 - networking: 'yes'
   no_zeroconf: 'yes'
@@ -80,7 +88,7 @@ network_scripts_interfaces:
     miimon: '100'
     xmit_hash_policy: '2'
     lacp_rate: '1'
-- description: 'Bonding Slave'
+- description: 'Bonding Slave 0'
   interface: 'eth0'
   type: 'Ethernet'
   onboot: 'yes'
@@ -90,7 +98,7 @@ network_scripts_interfaces:
   slave: 'yes'
 # Specifies master device to bind to.
   master: 'bond0'
-- description: 'Bonding Slave'
+- description: 'Bonding Slave 1'
   interface: 'eth1'
   type: 'Ethernet'
   onboot: 'yes'

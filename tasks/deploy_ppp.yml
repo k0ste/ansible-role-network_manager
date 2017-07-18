@@ -1,0 +1,11 @@
+---
+- name: network-scripts | Deploy CHAP secrets
+  debug:
+    msg: "{{ lookup('template', 'templates/ppp_secrets.j2').split('\n') }}"
+  vars:
+    secret_type: 'chap'
+- name: network-scripts | Deploy PAP secrets
+  debug:
+    msg: "{{ lookup('template', 'templates/ppp_secrets.j2').split('\n') }}"
+  vars:
+    secret_type: 'pap'

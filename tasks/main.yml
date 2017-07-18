@@ -1,0 +1,9 @@
+---
+- include: pre_requisite.yml
+- include: interface_executor.yml
+  when:
+  - "vars['network_interfaces'] is defined"
+- include: deploy_ppp.yml
+  when:
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"

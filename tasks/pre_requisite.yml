@@ -1,0 +1,7 @@
+---
+- name: network-scripts | Set facts about interfaces
+  set_fact:
+    network_interfaces: "{{ hostvars[inventory_hostname]['network_scripts_interfaces'] | json_query('[].interface') }}"
+  when:
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"

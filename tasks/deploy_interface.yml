@@ -1,0 +1,14 @@
+---
+- name: network-scripts | Deploy interfaces
+  template:
+    src: "network-scripts.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_scripts_dest'] + '/' + item.interface }}"
+    group: "root"
+    owner: "root"
+    mode: "0644"
+  with_items: "{{ hostvars[inventory_hostname]['network_scripts_interfaces'] | json_query(\"[?interface=='\" + vars['outer_item'] + \"']\") }}"
+  loop_control:
+    label: "{{ item.interface }}"
+  notify:
+  - "Enable network service"
+  - "Restart network service"
