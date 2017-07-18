@@ -42,15 +42,10 @@ network_scripts_restart: 'false'
 network_scripts_deploy_global: 'true'
 
 network_scripts_global:
-- networking: 'yes'
-  no_zeroconf: 'yes'
-# Delay in seconds after all network interfaces are initialized. Useful if
-# network has spanning tree running and must wait for STP convergence.
-  network_delay: '0'
 # Enable or disable global forwarding of incoming IPv6 packets on all interfaces.
 # Actual packet forwarding cannot be controlled per-device, use netfilter6 for
 # such issues.
-  ipv6_forwarding: 'no'
+- ipv6_forwarding: 'no'
 # Sets the default for device-based autoconfiguration.
 # Default: 'yes' if ipv6_forwarding: 'no', 'no' if ipv6_forwarding: 'yes'.
   ipv6_autoconf: 'yes'
@@ -59,11 +54,10 @@ network_scripts_global:
   ipv6_router: 'no'
 # Controls automatic IPv6 tunneling. Default is 'no'.
   ipv6_auto_tunnel: 'no'
-# Setting it to 1 there enables IP forwarding, setting it to 0 disables it
-# (which is the default for RFC compliance).
-  forward_ipv4: 'no'
-# This is not used with the move to systemd.
-  network_wait: ''
+  no_zeroconf: 'yes'
+# Delay in seconds after all network interfaces are initialized. Useful if
+# network has spanning tree running and must wait for STP convergence.
+  network_delay: '0'
 
 network_scripts_interfaces:
 # Friendly name for users to see. Most important for PPP. Only used in front

@@ -1,0 +1,4 @@
+---
+- name: network-scripts | Deploy global settings
+  debug:
+    msg: "{{ lookup('template', 'templates/network_global.j2').split('\n') }}"

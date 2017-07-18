@@ -1,5 +1,11 @@
 ---
 - include: pre_requisite.yml
+- include: deploy_global.yml
+  when:
+  - "hostvars[inventory_hostname]['network_scripts_global'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_global'] != ''"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_global'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_global'] == 'true'"
 - include: interface_executor.yml
   when:
   - "vars['network_interfaces'] is defined"
