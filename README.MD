@@ -16,6 +16,8 @@ Link types supported
 
 * ethernet (inc. pseudo, like [IMQ](//github.com/imq/linuximq));
 * vlan (802.1q);
+* pppoe;
+* bond;
 
 Extra
 -----------
@@ -186,6 +188,10 @@ network_scripts_interfaces:
 # transported through the tunnel.
   ttl: '255'
 - interface: 'ppp0'
+  type: 'xDSL'
+  physdev: 'vlan888'
+  ppp_user: 'ppp_USERQWFWF'
+  ppp_password: 'pspspdq'
 # Set this interface as default route. Default is 'yes'.
   defroute: 'no'
 # Turns on/off pppd and chat (if used) debugging. Default is 'yes'.
@@ -227,4 +233,16 @@ network_scripts_interfaces:
   idle_timeout: '600'
 # The amount of time to wait at boot before giving up on the connection.
   boot_timeout: '30'
+# Modify /etc/resolv.conf if peer uses msdns extension.
+  peer_dns: 'no'
+# Do not allow to user (not 'root') manage this connection.
+  user_ctl: 'no'
+# Another xDSL options. Set defaults.
+  firewall: 'NONE'
+  pid_file: '/var/run/pppoe-ppp0.pid'
+  pppoe_timeout: '80'
+  lcp_failure: '3'
+  lcp_interval: '20'
+  connect_pool: '6'
+  connect_timeout: '60'
 ```
