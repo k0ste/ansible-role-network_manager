@@ -1,11 +1,19 @@
 ---
 - name: network-scripts | Deploy CHAP secrets
-  debug:
-    msg: "{{ lookup('template', 'templates/ppp_secrets.j2').split('\n') }}"
+  template:
+    src: "network_global.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
+    group: "root"
+    owner: "root"
+    mode: "0644"
   vars:
     secret_type: 'chap'
 - name: network-scripts | Deploy PAP secrets
-  debug:
-    msg: "{{ lookup('template', 'templates/ppp_secrets.j2').split('\n') }}"
+  template:
+    src: "network_global.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
+    group: "root"
+    owner: "root"
+    mode: "0644"
   vars:
     secret_type: 'pap'

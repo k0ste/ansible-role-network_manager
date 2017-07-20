@@ -1,10 +1,10 @@
+{{ '#!/bin/bash' }}
 {{ '## ' + vars['trigger_type'] + '-local' }}
 {{ '# ' + ansible_managed }}
 {{ '# ' + 'Do not edit manually' }}
 
 {% for t in hostvars[inventory_hostname]['network_scripts_interfaces'] %}
 {% if loop.first %}
-{{ '#!/bin/bash' }}
 {{ 'case "$1" in' }}
 {% endif %}
 {% if t.ifup_local is defined and t.ifup_local != '' %}

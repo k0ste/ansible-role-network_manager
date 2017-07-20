@@ -27,7 +27,7 @@ Extra
 * Support 'static' and 'dhcp' connections;
 * Support arrays of addresses;
 * Support assign options for Bonding Linux module;
-* Support PostUp and PreDown command execution;
+* Support ifdown and ifup triggers;
 
 Example configuration
 -------------------------
@@ -40,6 +40,19 @@ network_scripts_enable: 'true'
 network_scripts_restart: 'false'
 # Deploy global settings
 network_scripts_deploy_global: 'true'
+# Deploy triggers
+#
+# # Custom commands in the scripts /sbin/ifup-local, ifdown-pre-local, and
+# ifdown-local. If you modified the initscripts themselves (for example,
+# /etc/sysconfig/network-scripts/ifup-eth) then those changes would be
+# overwritten by an initscripts package update. Therefore it is recommend that
+# you avoid modifying the initscripts directly and make use of the
+# /sbin/if*local scripts, so that your custom changes will survive package
+# updates. The initscripts just check for the presence of the relevant
+# /sbin/if*local and run them if they exist. The initscripts do not place
+# anything in the /sbin/if*local scripts, nor does the initscripts RPM (or any
+# package) own or modify those files.
+network_scripts_deploy_triggers: 'true'
 
 network_scripts_global:
 # Enable or disable global forwarding of incoming IPv6 packets on all interfaces.
@@ -82,6 +95,8 @@ network_scripts_interfaces:
     miimon: '100'
     xmit_hash_policy: '2'
     lacp_rate: '1'
+- interface: 'imq0'
+  onboot: 'yes'
 - description: 'Bonding Slave 0'
   interface: 'eth0'
   type: 'Ethernet'
@@ -92,6 +107,10 @@ network_scripts_interfaces:
   slave: 'yes'
 # Specifies master device to bind to.
   master: 'bond0'
+  # Task executed when interface comes up
+  ifup_local:
+  - 'ip link set dev eth0 txqueuelen 10000'
+  - 'ethtool -K eth0 gso off tso off gro off tx off rx off sg off'
 - description: 'Bonding Slave 1'
   interface: 'eth1'
   type: 'Ethernet'
@@ -100,6 +119,9 @@ network_scripts_interfaces:
   nm_controlled: 'no'
   slave: 'yes'
   master: 'bond0'
+  ifup_local:
+  - 'ip link set dev eth1 txqueuelen 10000'
+  - 'ethtool -K eth1 gso off tso off gro off tx off rx off sg off'
 - description: 'VLAN2'
   interface: 'vlan2'
   type: 'Ethernet'
@@ -111,6 +133,22 @@ network_scripts_interfaces:
   physdev: 'bond0'
   macaddr: '10:c3:7b:4f:58:a4'
   address: '82.200.50.62/30'
+  # You can use "$1" as interface name
+  ifup_local:
+  - 'ip route add 0.0.0.0/0 via 82.200.50.61 dev $1 table table100'
+  - 'ip route add 0.0.0.0/0 via 82.200.50.61 dev $1 table table200'
+  - 'ip route add 0.0.0.0/0 via 82.200.50.61 dev $1 table table300'
+  - 'ip rule add from 82.200.50.62 lookup table100'
+  - 'ip rule add from all fwmark 200 lookup table200'
+  - 'ip rule add from all fwmark 300 lookup table300'
+  # Task executed when interface goes down
+  ifdown_local:
+  - 'ip rule delete from 82.200.50.62 lookup table100'
+  - 'ip rule delete from all fwmark 200 lookup table200'
+  - 'ip rule delete from all fwmark 300 lookup table300'
+  - 'ip route delete 0.0.0.0/0 via 82.200.50.61 dev $1 table table100'
+  - 'ip route delete 0.0.0.0/0 via 82.200.50.61 dev $1 table table200'
+  - 'ip route delete 0.0.0.0/0 via 82.200.50.61 dev $1 table table300'
 - description: 'VLAN3'
   interface: 'vlan3'
   type: 'Ethernet'

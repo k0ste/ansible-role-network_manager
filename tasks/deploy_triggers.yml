@@ -1,11 +1,19 @@
 ---
 - name: network-scripts | Deploy ifup-local
-  debug:
-    msg: "{{ lookup('template', 'templates/ifup_local.j2').split('\n') }}"
+  template:
+    src: "ifup_local.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_scripts_triggers_dest'] + '/' + vars['trigger_type'] + '-local' }}"
+    group: "root"
+    owner: "root"
+    mode: "0755"
   vars:
     trigger_type: 'ifup'
 - name: network-scripts | Deploy ifdown-local
-  debug:
-    msg: "{{ lookup('template', 'templates/ifdown_local.j2').split('\n') }}"
+  template:
+    src: "ifdown_local.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_scripts_triggers_dest'] + '/' + vars['trigger_type'] + '-local' }}"
+    group: "root"
+    owner: "root"
+    mode: "0755"
   vars:
     trigger_type: 'ifdown'

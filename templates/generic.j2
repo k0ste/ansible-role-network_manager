@@ -1,8 +1,12 @@
+{# DEVICE is mandatory, so error here if not defined #}
+{{ 'DEVICE' + '=\"' + item.interface + '\"' }}
 {% if item.description is defined and item.description != '' %}
 {{ 'NAME' ~ '=\"' ~ item.description ~ '\"' }}
 {% endif %}
-{{ 'DEVICE' + '=\"' + item.interface + '\"' }}
+{# Some devices can be without TYPE, like IMQ. This works on EL7 #}
+{% if item.type is defined and item.type != '' %}
 {{ 'TYPE' + '=\"' + item.type + '\"' }}
+{% endif %}
 {% if item.onboot is defined and item.onboot in ['yes', 'no'] %}
 {{ 'ONBOOT' ~ '=\"' ~ item.onboot ~ '\"' }}
 {% endif %}
@@ -14,4 +18,7 @@
 {% endif %}
 {% if item.mtu is defined and item.mtu != '' %}
 {{ 'MTU' ~ '=\"' ~ item.mtu ~ '\"' }}
+{% endif %}
+{% if item.macaddr is defined and item.macaddr | hwaddr() %}
+{{ 'MACADDR' + '=\"' + item.macaddr + '\"' }}
 {% endif %}

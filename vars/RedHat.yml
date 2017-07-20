@@ -1,3 +1,5 @@
 ---
 network_scripts_service: 'network'
-network_scripts_dest: '/etc/sysconfig/network-scripts'
+network_scripts_sysconfig_dest: '/etc/sysconfig'
+network_scripts_ppp_dest: '/etc/ppp'
+network_scripts_triggers_dest: '/sbin'
