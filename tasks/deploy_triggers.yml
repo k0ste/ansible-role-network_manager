@@ -1,0 +1,11 @@
+---
+- name: network-scripts | Deploy ifup-local
+  debug:
+    msg: "{{ lookup('template', 'templates/ifup_local.j2').split('\n') }}"
+  vars:
+    trigger_type: 'ifup'
+- name: network-scripts | Deploy ifdown-local
+  debug:
+    msg: "{{ lookup('template', 'templates/ifdown_local.j2').split('\n') }}"
+  vars:
+    trigger_type: 'ifdown'

@@ -1,0 +1,23 @@
+{{ '## ' + vars['trigger_type'] + '-local' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% for t in hostvars[inventory_hostname]['network_scripts_interfaces'] %}
+{% if loop.first %}
+{{ '#!/bin/bash' }}
+{{ 'case "$1" in' }}
+{% endif %}
+{% if t.ifdown_local is defined and t.ifdown_local != '' %}
+{{ t.interface ~ ')' }}
+{% for tt in t.ifdown_local %}
+{{ tt }}
+{% if loop.last %}
+{{ ';;' }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if loop.last %}
+{{ 'esac' }}
+{{ 'exit 0' }}
+{% endif %}
+{% endfor %}

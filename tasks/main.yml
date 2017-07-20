@@ -13,3 +13,9 @@
   when:
   - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
   - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
+- include: deploy_triggers.yml
+  when:
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_triggers'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_triggers'] != 'true'"
