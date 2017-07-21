@@ -16,3 +16,6 @@
 {% if item.ttl is defined and item.ttl %}
 {{ 'TTL' ~ '=\"' ~ item.ttl ~ '\"' }}
 {% endif %}
+{% if item.owner is defined and item.owner %}
+{{ 'OWNER' ~ '=\"' ~ item.owner ~ '\"' }}
+{% endif %}

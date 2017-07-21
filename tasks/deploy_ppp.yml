@@ -5,6 +5,7 @@
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
+    force: "yes"
     mode: "0644"
   vars:
     secret_type: 'chap'
@@ -14,6 +15,7 @@
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
+    force: "yes"
     mode: "0644"
   vars:
     secret_type: 'pap'

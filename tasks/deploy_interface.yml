@@ -5,6 +5,7 @@
     dest: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] ~ '/network-scripts/' ~ 'ifcfg-' ~ item.interface }}"
     group: "root"
     owner: "root"
+    force: "yes"
     mode: "0644"
   with_items: "{{ hostvars[inventory_hostname]['network_scripts_interfaces'] | json_query(\"[?interface=='\" + vars['outer_item'] + \"']\") }}"
   loop_control:

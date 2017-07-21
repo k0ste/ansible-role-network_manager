@@ -18,15 +18,18 @@ Link types supported
 * vlan (802.1q);
 * pppoe;
 * bond;
-* tunnel (ipip, gre);
+* tunnel (ipip, gre, ?tuntap?);
+* bridge;
 
 Extra
 -----------
 
-* ip addresses, before deploy will be checked by Jinja with python-netaddr lib;
+* ip/mac addresses, before deploy will be checked by Jinja with python-netaddr
+lib;
 * Support 'static' and 'dhcp' connections;
 * Support arrays of addresses;
-* Support assign options for Bonding Linux module;
+* Support assign options for `bonding` devices;
+* Support assign options for `bridging` devices;
 * Support ifdown and ifup triggers;
 
 Example configuration
@@ -55,9 +58,9 @@ network_scripts_deploy_global: 'true'
 network_scripts_deploy_triggers: 'true'
 
 network_scripts_global:
-# Enable or disable global forwarding of incoming IPv6 packets on all interfaces.
-# Actual packet forwarding cannot be controlled per-device, use netfilter6 for
-# such issues.
+# Enable or disable global forwarding of incoming IPv6 packets on all
+# interfaces. Actual packet forwarding cannot be controlled per-device, use
+# netfilter6 for such issues.
 - ipv6_forwarding: 'no'
 # Sets the default for device-based autoconfiguration.
 # Default: 'yes' if ipv6_forwarding: 'no', 'no' if ipv6_forwarding: 'yes'.
@@ -89,7 +92,7 @@ network_scripts_interfaces:
   nm_controlled: 'no'
 # Default MTU for this device
   mtu: '9000'
-# A space-separated list of options to the bonding driver for this interface.
+# List of options to the bonding driver for this interface.
   bonding_options:
     mode: '4'
     miimon: '100'
@@ -97,6 +100,26 @@ network_scripts_interfaces:
     lacp_rate: '1'
 - interface: 'imq0'
   onboot: 'yes'
+  nm_controlled: 'no'
+  bootproto: 'none'
+- interface: 'br1'
+  type: 'Bridge'
+# Sets the bridge's 'bridge forward delay' (in seconds).
+  delay: '0'
+# Controls this bridge instance's participation in the spanning tree protocol.
+# If 'on' the STP will be turned on, otherwise it will be turned off. When
+# turned off, the bridge will not send or receive BPDUs, and will thus not
+# participate in the spanning tree protocol. If your bridge isn't the only
+# bridge on the LAN, or if there are loops in the LAN's topology, DO NOT turn
+# this option off. If you turn this option off, please know what you are doing.
+  stp: 'off'
+  onboot: 'yes'
+  nm_controlled: 'no'
+  bootproto: 'none'
+# List of bridging options for either the bridge device, or the port device.
+  bridging_opts:
+    hello_time: '200'
+    priority: '65535'
 - description: 'Bonding Slave 0'
   interface: 'eth0'
   type: 'Ethernet'
@@ -180,7 +203,8 @@ network_scripts_interfaces:
 # presence of a link before starting dhclient.
   dhcp_persistent: 'yes'
 # With this option set to 'yes', when a dhcp configured interface is brought
-# down with 'ifdown', the lease will be released. Otherwise, leases are not released.
+# down with 'ifdown', the lease will be released. Otherwise, leases are not
+# released.
   dhcp_release: 'yes'
 # Sends the specified hostname to the DHCP server.
   dhcp_hostname: 'el7'

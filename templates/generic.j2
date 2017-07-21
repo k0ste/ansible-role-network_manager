@@ -22,3 +22,6 @@
 {% if item.macaddr is defined and item.macaddr | hwaddr() %}
 {{ 'MACADDR' + '=\"' + item.macaddr + '\"' }}
 {% endif %}
+{% if item.bridge is defined and item.bridge != '' %}
+{{ 'BRIDGE' + '=\"' + item.bridge + '\"' }}
+{% endif %}
