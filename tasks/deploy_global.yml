@@ -1,6 +1,4 @@
 ---
-- name: network-scripts | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: network-scripts | Deploy global settings
   template:
     src: "network_global.j2"

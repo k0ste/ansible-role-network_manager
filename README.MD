@@ -1,5 +1,5 @@
-ansible-role-network-scripts
-==============================
+network-scripts
+================
 
 Role for deploy profiles for RHEL profile-based network manager.
 
@@ -56,11 +56,15 @@ network_scripts_deploy_global: 'true'
 # anything in the /sbin/if*local scripts, nor does the initscripts RPM (or any
 # package) own or modify those files.
 network_scripts_deploy_triggers: 'true'
+# Delete exists interface profiles. If 'true' - all files in
+# /etc/sysconfig/network-scripts matched with regex '^ifcfg-(.*)' will be
+# deleted.
+network_scripts_drop_exists: 'true'
 
 network_scripts_global:
-# Enable or disable global forwarding of incoming IPv6 packets on all
-# interfaces. Actual packet forwarding cannot be controlled per-device, use
-# netfilter6 for such issues.
+# Enable or disable global forwarding of incoming IPv6 packets on all interfaces.
+# Actual packet forwarding cannot be controlled per-device, use netfilter6 for
+# such issues.
 - ipv6_forwarding: 'no'
 # Sets the default for device-based autoconfiguration.
 # Default: 'yes' if ipv6_forwarding: 'no', 'no' if ipv6_forwarding: 'yes'.
@@ -203,8 +207,7 @@ network_scripts_interfaces:
 # presence of a link before starting dhclient.
   dhcp_persistent: 'yes'
 # With this option set to 'yes', when a dhcp configured interface is brought
-# down with 'ifdown', the lease will be released. Otherwise, leases are not
-# released.
+# down with 'ifdown', the lease will be released. Otherwise, leases are not released.
   dhcp_release: 'yes'
 # Sends the specified hostname to the DHCP server.
   dhcp_hostname: 'el7'
