@@ -1,10 +1,12 @@
 {% if item.address is defined and item.address != '' %}
 {% if item.address is string and item.address | ipaddr('host/prefix') %}
-{{ 'IPADDR' + '=\"' + item.address + '\"' }}
+{{ 'IPADDR' + '=\"' + item.address | ipaddr('address') + '\"' }}
+{{ 'PREFIX' ~ '=\"' ~ item.address | ipaddr('prefix') ~ '\"' }}
 {% elif item.address is sequence %}
 {% for addr in item.address %}
 {% if addr | ipaddr('host/prefix') %}
-{{ 'IPADDR' ~ loop.index ~ '=\"' ~ addr ~ '\"' }}
+{{ 'IPADDR' ~ loop.index ~ '=\"' ~ addr | ipaddr('address') ~ '\"' }}
+{{ 'PREFIX' ~ loop.index ~ '=\"' ~ addr | ipaddr('prefix') ~ '\"' }}
 {% endif %}
 {% endfor %}
 {% endif %}
