@@ -41,16 +41,18 @@ Example configuration
 network_scripts_enable: 'true'
 # Restart 'network' service. May be dangerous!
 network_scripts_restart: 'false'
-# Deploy global settings
+# Deploy global settings.
 network_scripts_deploy_global: 'true'
-# Deploy triggers
-#
-# # Custom commands in the scripts /sbin/ifup-local, ifdown-pre-local, and
-# ifdown-local. If you modified the initscripts themselves (for example,
-# /etc/sysconfig/network-scripts/ifup-eth) then those changes would be
-# overwritten by an initscripts package update. Therefore it is recommend that
-# you avoid modifying the initscripts directly and make use of the
-# /sbin/if*local scripts, so that your custom changes will survive package
+# Deploy interfaces or not. This can be used when you need triggers but do not
+# need interfaces. For example, because the interfaces are controlled by a
+# different entity (i.e. OpenStack, oVirt or Proxmox).
+network_scripts_deploy_interfaces: 'true'
+# Deploy triggers - custom commands in the scripts /sbin/ifup-local,
+# ifdown-pre-local, and ifdown-local. If you modified the initscripts themselves
+# (for example '/etc/sysconfig/network-scripts/ifup-eth') then those changes
+# would be overwritten by an initscripts package update. Therefore it is
+# recommend that you avoid modifying the initscripts directly and make use of
+# the /sbin/if*local scripts, so that your custom changes will survive package
 # updates. The initscripts just check for the presence of the relevant
 # /sbin/if*local and run them if they exist. The initscripts do not place
 # anything in the /sbin/if*local scripts, nor does the initscripts RPM (or any
@@ -60,6 +62,8 @@ network_scripts_deploy_triggers: 'true'
 # /etc/sysconfig/network-scripts matched with regex '^ifcfg-(.*)' will be
 # deleted.
 network_scripts_drop_exists: 'true'
+# Deploy PAP & CHAP ppp secrets, or not.
+network_scripts_ppp_secrets: 'true'
 
 network_scripts_global:
 # Enable or disable global forwarding of incoming IPv6 packets on all interfaces.

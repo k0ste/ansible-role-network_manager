@@ -9,10 +9,14 @@
 - include: interface_executor.yml
   when:
   - "vars['network_interfaces'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_interfaces'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_deploy_interfaces'] == 'true'"
 - include: deploy_ppp.yml
   when:
   - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
   - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
+  - "hostvars[inventory_hostname]['network_scripts_ppp_secrets'] is defined"
+  - "hostvars[inventory_hostname]['network_scripts_ppp_secrets'] == 'true'"
 - include: deploy_triggers.yml
   when:
   - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"

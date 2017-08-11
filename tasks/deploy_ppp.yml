@@ -1,7 +1,7 @@
 ---
 - name: network-scripts | Deploy CHAP secrets
   template:
-    src: "network_global.j2"
+    src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
@@ -11,7 +11,7 @@
     secret_type: 'chap'
 - name: network-scripts | Deploy PAP secrets
   template:
-    src: "network_global.j2"
+    src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' + vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
