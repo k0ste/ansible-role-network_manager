@@ -63,9 +63,15 @@
 {% if item.lcp_interval is defined and item.lcp_interval != '' %}
 {{ 'LCP_INTERVAL' ~ '=\"' ~ item.lcp_interval ~ '\"' }}
 {% endif %}
-{% if item.connect_pool is defined and item.connect_pool != '' %}
-{{ 'CONNECT_POOL' ~ '=\"' ~ item.connect_pool ~ '\"' }}
+{% if item.connect_poll is defined and item.connect_poll != '' %}
+{{ 'CONNECT_POLL' ~ '=\"' ~ item.connect_poll ~ '\"' }}
 {% endif %}
 {% if item.connect_timeout is defined and item.connect_timeout != '' %}
 {{ 'CONNECT_TIMEOUT' ~ '=\"' ~ item.connect_timeout ~ '\"' }}
+{% endif %}
+{% if item.clampmss is defined and item.clampmss != '' %}
+{{ 'CLAMPMSS' ~ '=\"' ~ item.clampmss ~ '\"' }}
+{% else %}
+{# avoid "/sbin/adsl-start: line 217" error #}
+{{ 'CLAMPMSS="no"' }}
 {% endif %}

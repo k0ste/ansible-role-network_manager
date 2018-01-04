@@ -308,12 +308,14 @@ network_scripts_interfaces:
   peer_dns: 'no'
 # Do not allow to user (not 'root') manage this connection.
   user_ctl: 'no'
+# Set mss size, default is 'no'.
+  clampmss: 'no'
 # Another xDSL options. Set defaults.
   firewall: 'NONE'
   pid_file: '/var/run/pppoe-ppp0.pid'
   pppoe_timeout: '80'
   lcp_failure: '3'
   lcp_interval: '20'
-  connect_pool: '6'
+  connect_poll: '6'
   connect_timeout: '60'
 ```
