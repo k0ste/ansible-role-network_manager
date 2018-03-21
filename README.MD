@@ -1,18 +1,15 @@
-network-scripts
-================
+# network-scripts
 
 Role for deploy profiles for RHEL profile-based network manager.
 
-Requirements for usage
------------------------
+## Requirements for usage
 
-* Ansible 2.2;
+* Ansible 2.4;
 * jmespath;
 * [python-netaddr](//docs.ansible.com/ansible/playbooks_filters_ipaddr.html);
 * ppp, if pppoe is used;
 
-Link types supported
------------------------
+## Link types supported
 
 * ethernet (inc. pseudo, like [IMQ](//github.com/imq/linuximq));
 * vlan (802.1q);
@@ -21,8 +18,7 @@ Link types supported
 * tunnel (ipip, gre, ?tuntap?);
 * bridge;
 
-Extra
------------
+## Extra
 
 * ip/mac addresses, before deploy will be checked by Jinja with python-netaddr
 lib;
@@ -32,8 +28,7 @@ lib;
 * Support assign options for `bridging` devices;
 * Support ifdown and ifup triggers;
 
-Example configuration
--------------------------
+## Example configuration
 
 ```yaml
 ---
