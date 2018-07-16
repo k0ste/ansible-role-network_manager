@@ -4,7 +4,7 @@ Role for deploy profiles for RHEL profile-based network manager.
 
 ## Requirements for usage
 
-* Ansible 2.4;
+* Ansible 2.5+;
 * jmespath;
 * [python-netaddr](//docs.ansible.com/ansible/playbooks_filters_ipaddr.html);
 * ppp, if pppoe is used;

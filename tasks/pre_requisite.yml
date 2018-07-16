@@ -1,6 +1,7 @@
 ---
 - name: network-scripts | Add the OS specific variables
-  include_vars: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+  include_vars: "{{
+    hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: network-scripts | Set facts about interfaces
   set_fact:
     network_interfaces: "{{
@@ -12,7 +13,7 @@
 - name: network-scripts | Find exists network profiles
   find:
     paths: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] +
-               '/' + 'network-scripts' }}"
+      '/' + 'network-scripts' }}"
     recurse: "no"
     file_type: "file"
     patterns: "^ifcfg-(.*)"
@@ -25,7 +26,7 @@
   file:
     path: "{{ item.path }}"
     state: "absent"
-  with_items: "{{ vars['find_result']['files'] }}"
+  loop: "{{ vars['find_result']['files'] | flatten(levels=1) }}"
   loop_control:
     label: "{{ item.path }}"
   when:

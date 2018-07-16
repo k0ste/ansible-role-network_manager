@@ -3,7 +3,7 @@
   template:
     src: "{{ vars['trigger_type'] + '_local' + '.j2' }}"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_triggers_dest'] +
-              '/' + vars['trigger_type'] + '-local' }}"
+      '/' + vars['trigger_type'] + '-local' }}"
     group: "root"
     owner: "root"
     force: "yes"
@@ -14,7 +14,7 @@
   template:
     src: "{{ vars['trigger_type'] + '_local' + '.j2' }}"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_triggers_dest'] +
-              '/' + vars['trigger_type'] + '-local' }}"
+      '/' + vars['trigger_type'] + '-local' }}"
     group: "root"
     owner: "root"
     force: "yes"

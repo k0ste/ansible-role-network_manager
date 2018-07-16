@@ -3,7 +3,7 @@
   template:
     src: "network_global.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] +
-              '/' + 'network' }}"
+      '/' + 'network' }}"
     group: "root"
     owner: "root"
     force: "yes"

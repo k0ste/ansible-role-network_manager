@@ -3,7 +3,7 @@
   template:
     src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' +
-              vars['secret_type'] + '-secrets' }}"
+      vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
     force: "yes"
@@ -14,7 +14,7 @@
   template:
     src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' +
-              vars['secret_type'] + '-secrets' }}"
+      vars['secret_type'] + '-secrets' }}"
     group: "root"
     owner: "root"
     force: "yes"
