@@ -208,8 +208,17 @@ network_scripts_interfaces:
 # With this option set to 'yes', when a dhcp configured interface is brought
 # down with 'ifdown', the lease will be released. Otherwise, leases are not released.
   dhcp_release: 'yes'
+# Tells to not obtain hostname from DHCP server in the ifup-post phase. This
+# option might be useful especially with static configuration of the interface.
+  no_dhcp_hostname: 'yes'
+# Tells initscripts whether the DHCP_HOSTNAME or DHCP_FQDN options (below)
+# should be sent to DHCP server.
+  dhcp_send_hostname: 'yes'                      
 # Sends the specified hostname to the DHCP server.
   dhcp_hostname: 'el7'
+# Sends the specified FQDN to the DHCP server. Please note when both
+# 'dhcp_hostname' and 'dhcp_fqdn' are specified, only 'dhcp_fqdn' will be used.
+  dhcp_fqdn: 'el7.redhat.com'
 # If set to 'yes', it will cause dhclient-script to ignore any $GATEWAY setting
 # that may be in the ifcfg file for this interface. Otherwise, the dhclient
 # session which obtains an ip-address on the same subnet as $GATEWAY will set
@@ -221,6 +230,10 @@ network_scripts_interfaces:
 # If set to 'no', ifup will not try to determine, if requested ip address is
 # used by other machine in network. Defaults to 'yes'.
   arp_check: 'no'
+# If set to 'no' the neighbours in current network will not be updated with ARP
+# information about this NIC. This is especially handy using LVS Load
+# Balancing with Direct Routing enabled. Defaults to 'yes'.
+  arp_update: 'yes'
 # If set to yes, ifup-eth will end immediately after ipv4 dhclient fails.
 # Defaults to 'no'.
   ipv4_failure_fatal: 'no'
