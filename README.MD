@@ -157,6 +157,7 @@ network_scripts_interfaces:
   vlan: 'yes'
   mtu: '9000'
   physdev: 'bond0'
+  physaddr: '9c:b6:d0:95:a7:1d'
   macaddr: '10:c3:7b:4f:58:a4'
   address: '82.200.50.62/30'
   # You can use "$1" as interface name

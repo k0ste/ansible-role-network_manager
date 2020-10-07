@@ -23,6 +23,9 @@
 {% if item.macaddr is defined and item.macaddr | hwaddr() %}
 {{ 'MACADDR' + '=\"' + item.macaddr + '\"' }}
 {% endif %}
+{% if item.physaddr is defined and item.physaddr | hwaddr() %}
+{{ 'HWADDR' + '=\"' + item.physaddr + '\"' }}
+{% endif %}
 {% if item.bridge is defined and item.bridge != '' %}
 {{ 'BRIDGE' + '=\"' + item.bridge + '\"' }}
 {% endif %}
