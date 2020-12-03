@@ -1,69 +1,66 @@
 {# DEVICE is mandatory, so error here if not defined #}
-{{ 'DEVICE' + '=\"' + item.interface + '\"' }}
+{{ 'DEVICE=\"' + item.interface + '\"' }}
 {% if item.description is defined and item.description != '' %}
-{{ 'NAME' ~ '=\"' ~ item.description ~ '\"' }}
+{{ 'NAME=\"' ~ item.description ~ '\"' }}
 {% endif %}
 {# Some devices can be without TYPE, like IMQ. This works on EL7 #}
 {% if item.type is defined and item.type != '' %}
-{{ 'TYPE' + '=\"' + item.type + '\"' }}
+{{ 'TYPE=\"' + item.type + '\"' }}
 {% endif %}
 {% if item.onboot is defined and item.onboot in ['yes', 'no'] %}
-{{ 'ONBOOT' ~ '=\"' ~ item.onboot ~ '\"' }}
+{{ 'ONBOOT=\"' + item.onboot + '\"' }}
 {% endif %}
 {% if item.bootproto is defined and
       item.bootproto in ['none', 'dhcp', 'bootp'] %}
-{{ 'BOOTPROTO' ~ '=\"' ~ item.bootproto ~ '\"' }}
+{{ 'BOOTPROTO=\"' + item.bootproto + '\"' }}
 {% endif %}
 {% if item.nm_controlled is defined and item.nm_controlled in ['yes', 'no'] %}
-{{ 'NM_CONTROLLED' ~ '=\"' ~ item.nm_controlled ~ '\"' }}
+{{ 'NM_CONTROLLED=\"' + item.nm_controlled + '\"' }}
 {% endif %}
 {% if item.mtu is defined and item.mtu != '' %}
-{{ 'MTU' ~ '=\"' ~ item.mtu ~ '\"' }}
+{{ 'MTU=\"' ~ item.mtu ~ '\"' }}
 {% endif %}
-{% if item.macaddr is defined and item.macaddr | hwaddr() %}
-{{ 'MACADDR' + '=\"' + item.macaddr + '\"' }}
+{% if item.macaddr is defined and item.macaddr | ansible.netcommon.hwaddr() %}
+{{ 'MACADDR=\"' + item.macaddr + '\"' }}
 {% endif %}
-{% if item.physaddr is defined and item.physaddr | hwaddr() %}
-{{ 'HWADDR' + '=\"' + item.physaddr + '\"' }}
-{% endif %}
-{% if item.bridge is defined and item.bridge != '' %}
-{{ 'BRIDGE' + '=\"' + item.bridge + '\"' }}
+{% if item.physaddr is defined and item.physaddr | ansible.netcommon.hwaddr() %}
+{{ 'HWADDR=\"' + item.physaddr + '\"' }}
 {% endif %}
 {% if item.dhcp_persistent is defined and
       item.dhcp_persistent in ['yes', 'no'] %}
-{{ 'PERSISTENT_DHCLIENT' ~ '=\"' ~ item.dhcp_persistent ~ '\"' }}
+{{ 'PERSISTENT_DHCLIENT=\"' + item.dhcp_persistent + '\"' }}
 {% endif %}
 {% if item.dhcp_release is defined and item.dhcp_release in ['yes', 'no'] %}
-{{ 'DHCPRELEASE' ~ '=\"' ~ item.dhcp_release ~ '\"' }}
+{{ 'DHCPRELEASE=\"' + item.dhcp_release + '\"' }}
 {% endif %}
 {% if item.no_dhcp_hostname is defined and
       item.no_dhcp_hostname in ['yes', 'no'] %}
-{{ 'NO_DHCP_HOSTNAME' ~ '=\"' ~ item.no_dhcp_hostname ~ '\"' }}
+{{ 'NO_DHCP_HOSTNAME=\"' + item.no_dhcp_hostname + '\"' }}
 {% endif %}
 {% if item.dhcp_send_hostname is defined and
       item.dhcp_send_hostname in ['yes', 'no'] %}
-{{ 'DHCP_SEND_HOSTNAME' ~ '=\"' ~ item.dhcp_send_hostname ~ '\"' }}
+{{ 'DHCP_SEND_HOSTNAME=\"' + item.dhcp_send_hostname + '\"' }}
 {% endif %}
 {% if item.dhcp_hostname is defined and item.dhcp_hostname != '' %}
-{{ 'DHCP_HOSTNAME' ~ '=\"' ~ item.dhcp_hostname ~ '\"' }}
+{{ 'DHCP_HOSTNAME=\"' ~ item.dhcp_hostname ~ '\"' }}
 {% endif %}
 {% if item.dhcp_fqdn is defined and item.dhcp_fqdn != '' %}
-{{ 'DHCP_FQDN' ~ '=\"' ~ item.dhcp_fqdn ~ '\"' }}
+{{ 'DHCP_FQDN=\"' ~ item.dhcp_fqdn ~ '\"' }}
 {% endif %}
 {% if item.dhcp_client_ignore_gateway is defined and
       item.dhcp_client_ignore_gateway in ['yes', 'no'] %}
-{{ 'DHCLIENT_IGNORE_GATEWAY' ~ '=\"' ~ item.dhcp_client_ignore_gateway ~ '\"' }}
+{{ 'DHCLIENT_IGNORE_GATEWAY=\"' + item.dhcp_client_ignore_gateway + '\"' }}
 {% endif %}
 {% if item.dhcp_client_args is defined and item.dhcp_client_args != '' %}
-{{ 'DHCLIENTARGS' ~ '=\"' ~ item.dhcp_client_args ~ '\"' }}
+{{ 'DHCLIENTARGS=\"' ~ item.dhcp_client_args ~ '\"' }}
 {% endif %}
 {% if item.arp_check is defined and item.arp_check in ['yes', 'no'] %}
-{{ 'ARPCHECK' ~ '=\"' ~ item.arp_check ~ '\"' }}
+{{ 'ARPCHECK=\"' + item.arp_check + '\"' }}
 {% endif %}
 {% if item.arp_update is defined and item.arp_update in ['yes', 'no'] %}
-{{ 'ARPUPDATE' ~ '=\"' ~ item.arp_update ~ '\"' }}
+{{ 'ARPUPDATE=\"' + item.arp_update + '\"' }}
 {% endif %}
 {% if item.ipv4_failure_fatal is defined and
       item.ipv4_failure_fatal in ['yes', 'no'] %}
-{{ 'IPV4_FAILURE_FATAL' ~ '=\"' ~ item.ipv4_failure_fatal ~ '\"' }}
+{{ 'IPV4_FAILURE_FATAL=\"' + item.ipv4_failure_fatal + '\"' }}
 {% endif %}

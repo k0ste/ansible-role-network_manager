@@ -3,6 +3,7 @@
 {{ '# ' + 'Do not edit manually' }}
 
 {% include 'generic.j2' -%}
+{% include 'ethernet.j2' -%}
 {% if item.address is defined %}{%- include 'ip.j2' -%}{% endif %}
 {% if item.slave is defined and item.slave == 'yes' %}{%- include 'bond_slave.j2' -%}
 {% elif item.vlan is defined and item.vlan == 'yes' %}{%- include '8021q.j2' -%}

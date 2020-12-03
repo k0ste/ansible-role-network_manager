@@ -1,6 +1,6 @@
 ---
 - name: network-scripts | Deploy interfaces
-  template:
+  ansible.builtin.template:
     src: "network-scripts.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] ~
       '/' ~ 'network-scripts' ~ '/' ~ 'ifcfg-' ~ item.interface }}"
@@ -9,7 +9,7 @@
     force: "yes"
     mode: "0644"
   loop: "{{ hostvars[inventory_hostname]['network_scripts_interfaces'] |
-    json_query(\"[?interface=='\" + vars['outer_item'] + \"']\") |
+    community.general.json_query(\"[?interface=='\" + vars['outer_item'] + \"']\") |
     flatten(levels=1) }}"
   loop_control:
     label: "{{ item.interface }}"

@@ -1,13 +1,13 @@
 ---
 - name: Enable network service
-  service:
+  ansible.builtin.service:
     name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
     enabled: "yes"
   when:
   - "hostvars[inventory_hostname]['network_scripts_enable'] is defined"
   - "hostvars[inventory_hostname]['network_scripts_enable'] == 'true'"
 - name: Restart network service
-  service:
+  ansible.builtin.service:
     name: "{{ hostvars[inventory_hostname]['quagga_zebra_service'] }}"
     state: "restarted"
   when:

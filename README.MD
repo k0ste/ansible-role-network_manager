@@ -4,7 +4,7 @@ Role for deploy profiles for RHEL profile-based network manager.
 
 ## Requirements for usage
 
-* Ansible 2.5+;
+* Ansible 2.10+;
 * jmespath;
 * [python-netaddr](//docs.ansible.com/ansible/playbooks_filters_ipaddr.html);
 * ppp, if pppoe is used;
@@ -190,6 +190,20 @@ network_scripts_interfaces:
   src_address: ''
 # Metric for the default route using 'gateway'.
   metric: '100'
+- description: 'VLAN48'
+  interface: 'vlan48'
+  type: 'Ethernet'
+  vlan: 'yes'
+# If set, the ethernet device is not assigned an address. It is added to  
+# the specified bridge device instead.                                     
+  bridge: 'br1'
+# Time that the system should pause after the specific interface is enabled.
+# This may be useful if one interface is connected to a switch which has
+# spanning tree enabled and must wait for STP to converge before the interface
+# should be considered usable.         
+  link_delay: '3'
+# If 'yes' adds 'arp' flag to ip, for use with the ethertap device.
+  arp: 'no'
 - description: 'VLAN4'
   interface: 'vlan4'
   type: 'Ethernet'

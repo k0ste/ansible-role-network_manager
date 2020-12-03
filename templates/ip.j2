@@ -1,28 +1,35 @@
 {% if item.address is defined and item.address != '' %}
-{% if item.address is string and item.address | ipaddr('host/prefix') %}
-{{ 'IPADDR' + '=\"' + item.address | ipaddr('address') + '\"' }}
-{{ 'PREFIX' ~ '=\"' ~ item.address | ipaddr('prefix') ~ '\"' }}
+{% if item.address is string and item.address |
+  ansible.netcommon.ipaddr('host/prefix') %}
+{{ 'IPADDR=\"' + item.address |
+  ansible.netcommon.ipaddr('address') + '\"' }}
+{{ 'PREFIX=\"' ~ item.address |
+  ansible.netcommon.ipaddr('prefix') ~ '\"' }}
 {% elif item.address is sequence %}
 {% for addr in item.address %}
-{% if addr | ipaddr('host/prefix') %}
-{{ 'IPADDR' ~ loop.index ~ '=\"' ~ addr | ipaddr('address') ~ '\"' }}
-{{ 'PREFIX' ~ loop.index ~ '=\"' ~ addr | ipaddr('prefix') ~ '\"' }}
+{% if addr | ansible.netcommon.ipaddr('host/prefix') %}
+{{ 'IPADDR' ~ loop.index ~ '=\"' + addr |
+  ansible.netcommon.ipaddr('address') + '\"' }}
+{{ 'PREFIX' ~ loop.index ~ '=\"' ~ addr |
+  ansible.netcommon.ipaddr('prefix') ~ '\"' }}
 {% endif %}
 {% endfor %}
 {% endif %}
 {% endif %}
-{% if item.gateway is defined and item.gateway | ipaddr('host') %}
-{{ 'GATEWAY' + '=\"' + item.gateway + '\"' }}
+{% if item.gateway is defined and item.gateway |
+  ansible.netcommon.ipaddr('host') %}
+{{ 'GATEWAY=\"' + item.gateway + '\"' }}
 {% endif %}
-{% if item.dns is defined and item.dns | ipaddr('host') %}
+{% if item.dns is defined and item.dns | ansible.netcommon.ipaddr('host') %}
 {% endif %}
 {% if item.dns is defined and item.dns != '' %}
-{% if item.dns is string and item.address | ipaddr('host') %}
-{{ 'DNS' + '=\"' + item.dns + '\"' }}
+{% if item.dns is string and item.address | ansible.netcommon.ipaddr('host') %}
+{{ 'DNS=\"' + item.dns + '\"' }}
 {% elif item.dns is sequence %}
 {% for addr in item.dns %}
-{% if addr | ipaddr('host') %}
-{{ 'DNS' ~ loop.index ~ '=\"' ~ addr | ipaddr('address') ~ '\"' }}
+{% if addr | ansible.netcommon.ipaddr('host') %}
+{{ 'DNS' ~ loop.index ~ '=\"' + addr |
+  ansible.netcommon.ipaddr('address') + '\"' }}
 {% endif %}
 {% endfor %}
 {% endif %}

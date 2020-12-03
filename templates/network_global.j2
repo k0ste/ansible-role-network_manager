@@ -4,21 +4,21 @@
 
 {% for g in hostvars[inventory_hostname]['network_scripts_global'] %}
 {% if g.no_zeroconf is defined and g.no_zeroconf in ['yes', 'no'] %}
-{{ 'NOZEROCONF' + '=\"' + g.no_zeroconf + '\"' }}
+{{ 'NOZEROCONF=\"' + g.no_zeroconf + '\"' }}
 {% endif %}
 {% if g.network_delay is defined and g.network_delay != '' %}
-{{ 'NETWORKDELAY' + '=\"' + g.network_delay + '\"' }}
+{{ 'NETWORKDELAY=\"' + g.network_delay + '\"' }}
 {% endif %}
 {% if g.ipv6_forwarding is defined and g.ipv6_forwarding in ['yes', 'no'] %}
-{{ 'IPV6FORWARDING' + '=\"' + g.ipv6_forwarding + '\"' }}
+{{ 'IPV6FORWARDING=\"' + g.ipv6_forwarding + '\"' }}
 {% endif %}
 {% if g.ipv6_autoconf is defined and g.ipv6_autoconf in ['yes', 'no'] %}
-{{ 'IPV6_AUTOCONF' + '=\"' + g.ipv6_autoconf + '\"' }}
+{{ 'IPV6_AUTOCONF=\"' + g.ipv6_autoconf + '\"' }}
 {% endif %}
 {% if g.ipv6_router is defined and g.ipv6_router in ['yes', 'no'] %}
-{{ 'IPV6_ROUTER' + '=\"' + g.ipv6_router + '\"' }}
+{{ 'IPV6_ROUTER=\"' + g.ipv6_router + '\"' }}
 {% endif %}
 {% if g.ipv6_auto_tunnel is defined and g.ipv6_auto_tunnel in ['yes', 'no'] %}
-{{ 'IPV6_AUTOTUNNEL' + '=\"' + g.ipv6_auto_tunnel + '\"' }}
+{{ 'IPV6_AUTOTUNNEL=\"' + g.ipv6_auto_tunnel + '\"' }}
 {% endif %}
 {% endfor %}
