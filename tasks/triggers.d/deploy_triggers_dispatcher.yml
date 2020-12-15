@@ -1,0 +1,12 @@
+---
+- name: "{{ 'network-scripts | Deploy ' + vars['trigger_type'] +
+  ' trigger for dispatcher.d' }}"
+  ansible.builtin.template:
+    src: "{{ 'triggers/triggers_dispatcher_' + vars['trigger_type'] + '.j2' }}"
+    dest: "{{
+      hostvars[inventory_hostname]['network_scripts_triggers_dispatcher_dest'] +
+      '/' + '70-ansible_' + vars['trigger_type'] }}"
+    group: "root"
+    owner: "root"
+    force: "yes"
+    mode: "0755"

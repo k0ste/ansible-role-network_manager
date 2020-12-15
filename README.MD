@@ -26,7 +26,8 @@ lib;
 * Support arrays of addresses;
 * Support assign options for `bonding` devices;
 * Support assign options for `bridging` devices;
-* Support ifdown and ifup triggers;
+* Support ifdown and ifup triggers (for network-scripts);
+* Support NetworkManager dispatcher.d triggers (for NetworkManager)
 
 ## Example configuration
 
@@ -53,6 +54,10 @@ network_scripts_deploy_interfaces: 'true'
 # anything in the /sbin/if*local scripts, nor does the initscripts RPM (or any
 # package) own or modify those files.
 network_scripts_deploy_triggers: 'true'
+# Type of triggers for deploy:
+# 'ifcfg' - for network-scripts
+# 'dispatcher' - for NetworkManager
+network_scripts_triggers_type: 'dispatcher'
 # Delete exists interface profiles. If 'true' - all files in
 # /etc/sysconfig/network-scripts matched with regex '^ifcfg-(.*)' will be
 # deleted.

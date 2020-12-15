@@ -1,5 +1,5 @@
 {{ '#!/bin/bash' }}
-{{ '## ' + vars['trigger_type'] + '-local' }}
+{{ '## ifdown_local' }}
 {{ '# ' + ansible_managed }}
 {{ '# ' + 'Do not edit manually' }}
 
@@ -7,9 +7,9 @@
 {% if loop.first %}
 {{ 'case "$1" in' }}
 {% endif %}
-{% if t.ifup_local is defined and t.ifup_local != '' %}
+{% if t.ifdown_local is defined and t.ifdown_local != '' %}
 {{ t.interface ~ ')' }}
-{% for tt in t.ifup_local %}
+{% for tt in t.ifdown_local %}
 {{ tt }}
 {% if loop.last %}
 {{ ';;' }}

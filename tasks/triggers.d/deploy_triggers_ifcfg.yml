@@ -1,0 +1,11 @@
+---
+- name: "{{ 'network-scripts | Deploy ' + vars['trigger_type'] + '-local' }}"
+  ansible.builtin.template:
+    src: "{{ 'triggers/triggers_ifcfg_' + vars['trigger_type'] + '.j2' }}"
+    dest: "{{
+      hostvars[inventory_hostname]['network_scripts_triggers_ifcfg_dest'] +
+      '/' + 'if' + vars['trigger_type'] + '-local' }}"
+    group: "root"
+    owner: "root"
+    force: "yes"
+    mode: "0755"

@@ -1,0 +1,14 @@
+{{ '#!/bin/bash' }}
+{{ '## 70-ansible_down' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% for t in hostvars[inventory_hostname]['network_scripts_interfaces'] %}
+{% if t.ifdown_local is defined and t.ifdown_local != '' %}
+{{ 'if [ \"$1\" = \"' ~ t.interface ~ '\" ] && [ \"$2\" = \"down\" ]; then' }}
+{% for tt in t.ifdown_local %}
+{{ tt }}
+{% endfor %}
+{{ 'fi' }}
+{% endif %}
+{% endfor %}

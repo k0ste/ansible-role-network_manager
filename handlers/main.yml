@@ -8,7 +8,7 @@
   - "hostvars[inventory_hostname]['network_scripts_enable'] == 'true'"
 - name: Restart network service
   ansible.builtin.service:
-    name: "{{ hostvars[inventory_hostname]['quagga_zebra_service'] }}"
+    name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
     state: "restarted"
   when:
   - "hostvars[inventory_hostname]['network_scripts_restart'] is defined"
