@@ -1,15 +1,15 @@
 ---
 - name: network-scripts | Add the OS specific variables
-  include_vars: "{{
-    hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
+  ansible.builtin.include_vars:
+    file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
 - name: network-scripts | Set facts about interfaces
   ansible.builtin.set_fact:
     network_interfaces: "{{
       hostvars[inventory_hostname]['network_scripts_interfaces'] |
       community.general.json_query('[].interface') }}"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
+    - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
 - name: network-scripts | Find exists network profiles
   ansible.builtin.find:
     paths: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] +
@@ -20,8 +20,8 @@
     use_regex: "true"
   register: "find_result"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_drop_exists'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_drop_exists'] == 'true'"
+    - "hostvars[inventory_hostname]['network_scripts_drop_exists'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_drop_exists'] == 'true'"
 - name: network-scripts | Delete exists network profiles
   ansible.builtin.file:
     path: "{{ item.path }}"
@@ -30,4 +30,4 @@
   loop_control:
     label: "{{ item.path }}"
   when:
-  - "vars['find_result']['files'] is defined"
+    - "vars['find_result']['files'] is defined"

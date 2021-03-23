@@ -1,6 +1,6 @@
 ---
 - name: "{{ 'network-scripts | Deploy ' + vars['trigger_type'] +
-  ' trigger for dispatcher.d' }}"
+    ' trigger for dispatcher.d' }}"
   ansible.builtin.template:
     src: "{{ 'triggers/triggers_dispatcher_' + vars['trigger_type'] + '.j2' }}"
     dest: "{{

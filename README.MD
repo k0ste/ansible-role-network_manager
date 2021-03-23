@@ -4,9 +4,7 @@ Role for deploy profiles for RHEL profile-based network manager.
 
 ## Requirements for usage
 
-* Ansible 2.10+;
-* jmespath;
-* [python-netaddr](//docs.ansible.com/ansible/playbooks_filters_ipaddr.html);
+* Ansible 3.0.0+;
 * ppp, if pppoe is used;
 
 ## Link types supported
@@ -155,7 +153,7 @@ network_scripts_interfaces:
   - 'ethtool -K eth1 gso off tso off gro off tx off rx off sg off'
 - description: 'VLAN2'
   interface: 'vlan2'
-  type: 'Ethernet'
+  type: 'Vlan'
   onboot: 'yes'
   bootproto: 'none'
   nm_controlled: 'no'
@@ -183,10 +181,9 @@ network_scripts_interfaces:
   - 'ip route delete 0.0.0.0/0 via 82.200.50.61 dev $1 table table300'
 - description: 'VLAN3'
   interface: 'vlan3'
-  type: 'Ethernet'
+  type: 'Vlan'
   onboot: 'yes'
-  bootproto: 'none'
-  nm_controlled: 'no'
+  bootproto: 'static'
   vlan: 'yes'
   physdev: 'bond0'
   address: '82.200.50.2/30'
@@ -197,7 +194,7 @@ network_scripts_interfaces:
   metric: '100'
 - description: 'VLAN48'
   interface: 'vlan48'
-  type: 'Ethernet'
+  type: 'Vlan'
   vlan: 'yes'
 # If set, the ethernet device is not assigned an address. It is added to  
 # the specified bridge device instead.                                     
@@ -211,10 +208,9 @@ network_scripts_interfaces:
   arp: 'no'
 - description: 'VLAN4'
   interface: 'vlan4'
-  type: 'Ethernet'
+  type: 'Vlan'
   onboot: 'yes'
   bootproto: 'dhcp'
-  nm_controlled: 'no'
   vlan: 'yes'
   physdev: 'bond0'
 # Without this option, or if it is 'no', and bootproto: 'dhcp', dhclient is run

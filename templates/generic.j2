@@ -11,7 +11,7 @@
 {{ 'ONBOOT=\"' + item.onboot + '\"' }}
 {% endif %}
 {% if item.bootproto is defined and
-      item.bootproto in ['none', 'dhcp', 'bootp'] %}
+      item.bootproto in ['none', 'dhcp', 'bootp', 'static'] %}
 {{ 'BOOTPROTO=\"' + item.bootproto + '\"' }}
 {% endif %}
 {% if item.nm_controlled is defined and item.nm_controlled in ['yes', 'no'] %}

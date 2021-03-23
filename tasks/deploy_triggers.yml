@@ -1,25 +1,27 @@
 ---
 - include_tasks: "triggers.d/deploy_triggers_ifcfg.yml"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'ifcfg'"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'ifcfg'"
   vars:
     trigger_type: 'up'
 - include_tasks: "triggers.d/deploy_triggers_ifcfg.yml"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'ifcfg'"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'ifcfg'"
   vars:
     trigger_type: 'down'
 - include_tasks: "triggers.d/deploy_triggers_dispatcher.yml"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'dispatcher'"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] ==
+      'dispatcher'"
   vars:
     trigger_type: 'up'
 - include_tasks: "triggers.d/deploy_triggers_dispatcher.yml"
   when:
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
-  - "hostvars[inventory_hostname]['network_scripts_triggers_type'] == 'dispatcher'"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] is defined"
+    - "hostvars[inventory_hostname]['network_scripts_triggers_type'] ==
+      'dispatcher'"
   vars:
     trigger_type: 'down'
