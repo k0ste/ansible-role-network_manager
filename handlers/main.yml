@@ -4,12 +4,20 @@
     name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
     enabled: "yes"
   when:
-    - "hostvars[inventory_hostname]['network_scripts_enable'] is defined"
-    - "hostvars[inventory_hostname]['network_scripts_enable'] == 'true'"
+    - "(hostvars[inventory_hostname]['network_scripts_restart'] is defined and
+      hostvars[inventory_hostname]['network_scripts_restart'] == 'true')"
+    - "(hostvars[inventory_hostname]['58:network_scripts_triggers_type'] is
+      defined and
+      hostvars[inventory_hostname]['58:network_scripts_triggers_type'] ==
+      'ifcfg')"
 - name: Restart network service
   ansible.builtin.service:
     name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
     state: "restarted"
   when:
-    - "hostvars[inventory_hostname]['network_scripts_restart'] is defined"
-    - "hostvars[inventory_hostname]['network_scripts_restart'] == 'true'"
+    - "(hostvars[inventory_hostname]['network_scripts_restart'] is defined and
+      hostvars[inventory_hostname]['network_scripts_restart'] == 'true')"
+    - "(hostvars[inventory_hostname]['58:network_scripts_triggers_type'] is
+      defined and
+      hostvars[inventory_hostname]['58:network_scripts_triggers_type'] ==
+      'ifcfg')"
