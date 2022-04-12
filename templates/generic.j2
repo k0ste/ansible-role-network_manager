@@ -20,10 +20,10 @@
 {% if item.mtu is defined and item.mtu != '' %}
 {{ 'MTU=\"' ~ item.mtu ~ '\"' }}
 {% endif %}
-{% if item.macaddr is defined and item.macaddr | ansible.netcommon.hwaddr() %}
+{% if item.macaddr is defined and item.macaddr | ansible.utils.hwaddr() %}
 {{ 'MACADDR=\"' + item.macaddr + '\"' }}
 {% endif %}
-{% if item.physaddr is defined and item.physaddr | ansible.netcommon.hwaddr() %}
+{% if item.physaddr is defined and item.physaddr | ansible.utils.hwaddr() %}
 {{ 'HWADDR=\"' + item.physaddr + '\"' }}
 {% endif %}
 {% if item.dhcp_persistent is defined and
