@@ -19,7 +19,8 @@
 {% if item.papname is defined and item.papname != '' %}
 {{ 'PAPNAME=\"' ~ item.papname ~ '\"' }}
 {% endif %}
-{% if item.remote_address is defined and item.remote_address | ipaddr('host') %}
+{% if item.remote_address is defined and item.remote_address |
+  ansible.utils.ipaddr('host') %}
 {{ 'REMIP=\"' + item.remote_address + '\"' }}
 {% endif %}
 {% if item.disconnect_timeout is defined and item.disconnect_timeout != '' %}
