@@ -62,6 +62,13 @@ network_scripts_triggers_type: 'dispatcher'
 network_scripts_drop_exists: 'true'
 # Deploy PAP & CHAP ppp secrets, or not.
 network_scripts_ppp_secrets: 'true'
+# The global functions for ifup_local. This content will be putted to
+# ifup_local script and functions can be accessed for any interface via
+# - 'main "<iface_name>"'
+network_scripts_ifup_global: |
+  function main() {
+    if ip link set dev "${1}" txqueuelen 10000
+  }
 
 network_scripts_global:
 # Enable or disable global forwarding of incoming IPv6 packets on all interfaces.
@@ -196,13 +203,13 @@ network_scripts_interfaces:
   interface: 'vlan48'
   type: 'Vlan'
   vlan: 'yes'
-# If set, the ethernet device is not assigned an address. It is added to  
-# the specified bridge device instead.                                     
+# If set, the ethernet device is not assigned an address. It is added to
+# the specified bridge device instead.
   bridge: 'br1'
 # Time that the system should pause after the specific interface is enabled.
 # This may be useful if one interface is connected to a switch which has
 # spanning tree enabled and must wait for STP to converge before the interface
-# should be considered usable.         
+# should be considered usable.
   link_delay: '3'
 # If 'yes' adds 'arp' flag to ip, for use with the ethertap device.
   arp: 'no'
@@ -229,7 +236,7 @@ network_scripts_interfaces:
   no_dhcp_hostname: 'yes'
 # Tells initscripts whether the DHCP_HOSTNAME or DHCP_FQDN options (below)
 # should be sent to DHCP server.
-  dhcp_send_hostname: 'yes'                      
+  dhcp_send_hostname: 'yes'
 # Sends the specified hostname to the DHCP server.
   dhcp_hostname: 'el7'
 # Sends the specified FQDN to the DHCP server. Please note when both

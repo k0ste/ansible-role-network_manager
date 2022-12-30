@@ -3,6 +3,11 @@
 {{ '# ' + ansible_managed }}
 {{ '# ' + 'Do not edit manually' }}
 
+{% if hostvars[inventory_hostname]['network_scripts_ifup_global'] is defined
+  and hostvars[inventory_hostname]['network_scripts_ifup_global'] != '' %}
+{{ hostvars[inventory_hostname]['network_scripts_ifup_global'] }}
+{% endif %}
+
 {% for t in hostvars[inventory_hostname]['network_scripts_interfaces'] %}
 {% if loop.first %}
 {{ 'case "$1" in' }}
