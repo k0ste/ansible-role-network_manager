@@ -1,23 +1,28 @@
 ---
-- import_tasks: "pre_requisite.yml"
-- include_tasks: "deploy_global.yml"
+- ansible.builtin.import_tasks:
+    file: "pre_requisite.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_global.yml"
   when:
     - "hostvars[inventory_hostname]['network_scripts_global'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_global'] != ''"
     - "hostvars[inventory_hostname]['network_scripts_deploy_global'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_deploy_global'] == 'true'"
-- include_tasks: "interface_executor.yml"
+- ansible.builtin.include_tasks:
+    file: "interface_executor.yml"
   when:
     - "vars['network_interfaces'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_deploy_interfaces'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_deploy_interfaces'] == 'true'"
-- include_tasks: "deploy_ppp.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_ppp.yml"
   when:
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
     - "hostvars[inventory_hostname]['network_scripts_ppp_secrets'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_ppp_secrets'] == 'true'"
-- include_tasks: "deploy_triggers.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_triggers.yml"
   when:
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"

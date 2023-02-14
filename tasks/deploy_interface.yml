@@ -1,9 +1,9 @@
 ---
-- name: network-scripts | Deploy interfaces
+- name: "network-scripts | Deploy interfaces"
   ansible.builtin.template:
     src: "network-scripts.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] +
-      '/network-scripts/' + 'ifcfg-' ~ item.interface }}"
+      '/network-scripts/' + 'ifcfg-' ~ item['interface'] }}"
     group: "root"
     owner: "root"
     force: "yes"
@@ -12,7 +12,7 @@
     community.general.json_query('[?interface==`' + vars['outer_item'] + '`]') |
     flatten(levels=1) }}"
   loop_control:
-    label: "{{ item.interface }}"
+    label: "{{ item['interface'] }}"
   notify:
     - "Enable network service"
     - "Restart network service"

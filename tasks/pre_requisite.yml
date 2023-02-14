@@ -1,8 +1,8 @@
 ---
-- name: network-scripts | Add the OS specific variables
+- name: "network-scripts | Add the OS specific variables"
   ansible.builtin.include_vars:
     file: "{{ hostvars[inventory_hostname]['ansible_os_family'] + '.yml' }}"
-- name: network-scripts | Set facts about interfaces
+- name: "network-scripts | Set facts about interfaces"
   ansible.builtin.set_fact:
     network_interfaces: "{{
       hostvars[inventory_hostname]['network_scripts_interfaces'] |
@@ -10,7 +10,7 @@
   when:
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_interfaces'] != ''"
-- name: network-scripts | Find exists network profiles
+- name: "network-scripts | Find exists network profiles"
   ansible.builtin.find:
     paths: "{{ hostvars[inventory_hostname]['network_scripts_sysconfig_dest'] +
       '/' + 'network-scripts' }}"
@@ -18,16 +18,22 @@
     file_type: "file"
     patterns: "^ifcfg-(.*)"
     use_regex: "true"
+    excludes: "{{ exclude_interfaces }}"
+  vars:
+    # This excludes ifaces that will be deployed, to reduce number of deleting
+    # calls (no delete files what will be modified)
+    exclude_interfaces: "{{ vars['network_interfaces'] |
+      map('regex_replace', '^(.*)$', 'ifcfg-\\1') | list }}"
   register: "find_result"
   when:
     - "hostvars[inventory_hostname]['network_scripts_drop_exists'] is defined"
     - "hostvars[inventory_hostname]['network_scripts_drop_exists'] == 'true'"
-- name: network-scripts | Delete exists network profiles
+- name: "network-scripts | Delete exists network profiles"
   ansible.builtin.file:
-    path: "{{ item.path }}"
+    path: "{{ item['path'] }}"
     state: "absent"
   loop: "{{ vars['find_result']['files'] | flatten(levels=1) }}"
   loop_control:
-    label: "{{ item.path }}"
+    label: "{{ 'Remove ' + item['path'] }}"
   when:
     - "vars['find_result']['files'] is defined"

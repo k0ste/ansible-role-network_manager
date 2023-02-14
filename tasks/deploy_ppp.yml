@@ -1,5 +1,5 @@
 ---
-- name: network-scripts | Deploy CHAP secrets
+- name: "network-scripts | Deploy CHAP secrets"
   ansible.builtin.template:
     src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' +
@@ -10,7 +10,7 @@
     mode: "0644"
   vars:
     secret_type: 'chap'
-- name: network-scripts | Deploy PAP secrets
+- name: "network-scripts | Deploy PAP secrets"
   ansible.builtin.template:
     src: "ppp_secrets.j2"
     dest: "{{ hostvars[inventory_hostname]['network_scripts_ppp_dest'] + '/' +

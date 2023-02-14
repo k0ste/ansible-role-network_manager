@@ -1,17 +1,17 @@
 ---
 galaxy_info:
+  role_name: "network_scripts"
+  namespace: "none"
   author: "Konstantin Shalygin <k0ste@k0ste.ru>"
   issue_tracker_url: "https://github.com/k0ste/ansible-role-network-scripts"
-  description: "Role for deploy profiles for RHEL profile-based network manager."
+  description: "Role for deploy profiles for RHEL profile-based network manager"
   company: "YASB"
   license: "GPL"
   min_ansible_version: "3.0.0"
   platforms:
-    - name: EL
+    - name: "EL"
       versions:
-        - 7
-        - 8
-  categories:
-    - system
-    - networking
+        - 'all'
+  galaxy_tags:
+    - 'networking'
 dependencies: []
