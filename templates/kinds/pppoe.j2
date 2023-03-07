@@ -1,0 +1,82 @@
+{# ETH is mandatory #}
+{{ 'ETH=\"' ~ item['physdev'] ~ '\"' }}
+{% if item['ppp_user'] is defined and item['ppp_user'] != '' %}
+{{ 'USER=\"' ~ item['ppp_user'] ~ '\"' }}
+{% endif %}
+{% if item['defroute'] is defined and item['defroute'] in ['yes', 'no'] %}
+{{ 'DEFROUTE=\"' + item['defroute'] + '\"' }}
+{% endif %}
+{% if item['debug'] is defined and item['debug'] in ['yes', 'no'] %}
+{{ 'DEBUG=\"' + item['debug'] + '\"' }}
+{% endif %}
+{% if item['escapeshars'] is defined and item['escapeshars'] in ['yes', 'no'] %}
+{{ 'ESCAPECHARS' '=\"' + item['escapeshars'] + '\"' }}
+{% endif %}
+{% if item['hardware_flow_control'] is defined and
+  item['hardware_flow_control'] in ['yes', 'no'] %}
+{{ 'HARDFLOWCTL=\"' + item['hardware_flow_control'] + '\"' }}
+{% endif %}
+{% if item['papname'] is defined and item['papname'] != '' %}
+{{ 'PAPNAME=\"' ~ item['papname'] ~ '\"' }}
+{% endif %}
+{% if item['remote_address'] is defined and item['remote_address'] |
+  ansible.utils.ipaddr('host') %}
+{{ 'REMIP=\"' + item['remote_address'] + '\"' }}
+{% endif %}
+{% if item['disconnect_timeout'] is defined and
+  item['disconnect_timeout'] != '' %}
+{{ 'DISCONNECTTIMEOUT=\"' ~ item['disconnect_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['retry_timeout'] is defined and item['retry_timeout'] != '' %}
+{{ 'RETRYTIMEOUT=\"' ~ item['retry_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['retry_connect'] is defined and item['retry_connect'] in ['yes',
+  'no'] %}
+{{ 'RETRYCONNECT=\"' + item['retry_connect'] + '\"' }}
+{% endif %}
+{% if item['max_fail'] is defined and item['max_fail'] != '' %}
+{{ 'MAXFAIL=\"' ~ item['max_fail'] ~ '\"' }}
+{% endif %}
+{% if item['demand'] is defined and item['demand'] in ['yes', 'no'] %}
+{{ 'DEMAND=\"' + item['demand'] + '\"' }}
+{% endif %}
+{% if item['idle_timeout'] is defined and item['idle_timeout'] != '' %}
+{{ 'IDLETIMEOUT=\"' ~ item['idle_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['boot_timeout'] is defined and item['boot_timeout'] != '' %}
+{{ 'BOOTTIMEOUT=\"' ~ item['boot_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['peer_dns'] is defined and item['peer_dns'] in ['yes', 'no'] %}
+{{ 'PEERDNS=\"' + item['peer_dns'] + '\"' }}
+{% endif %}
+{% if item['user_ctl'] is defined and item['user_ctl'] in ['yes', 'no'] %}
+{{ 'USERCTL=\"' + item['user_ctl'] + '\"' }}
+{% endif %}
+{% if item['firewall'] is defined and item['firewall'] in ['NONE', 'STANDALONE',
+  'MASQUERADE'] %}
+{{ 'FIREWALL=\"' + item['firewall'] + '\"' }}
+{% endif %}
+{% if item['pid_file'] is defined and item['pid_file'] != '' %}
+{{ 'PIDFILE=\"' + item['pid_file'] + '\"' }}
+{% endif %}
+{% if item['pppoe_timeout'] is defined and item['pppoe_timeout'] != '' %}
+{{ 'PPPOE_TIMEOUT=\"' ~ item['pppoe_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['lcp_failure'] is defined and item['lcp_failure'] != '' %}
+{{ 'LCP_FAILURE=\"' ~ item['lcp_failure'] + '\"' }}
+{% endif %}
+{% if item['lcp_interval'] is defined and item['lcp_interval'] != '' %}
+{{ 'LCP_INTERVAL=\"' ~ item['lcp_interval'] ~ '\"' }}
+{% endif %}
+{% if item['connect_poll'] is defined and item['connect_poll'] != '' %}
+{{ 'CONNECT_POLL=\"' ~ item['connect_poll'] ~ '\"' }}
+{% endif %}
+{% if item['connect_timeout'] is defined and item['connect_timeout'] != '' %}
+{{ 'CONNECT_TIMEOUT=\"' ~ item['connect_timeout'] ~ '\"' }}
+{% endif %}
+{% if item['clampmss'] is defined and item['clampmss'] != '' %}
+{{ 'CLAMPMSS=\"' ~ item['clampmss'] ~ '\"' }}
+{% else %}
+{# avoid "/sbin/adsl-start: line 217" error #}
+{{ 'CLAMPMSS="no"' }}
+{% endif %}

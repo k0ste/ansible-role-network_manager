@@ -1,10 +1,2 @@
 ---
-network_scripts_enable: 'true'
-network_scripts_restart: 'false'
-network_scripts_deploy_interfaces: 'true'
-network_scripts_deploy_global: 'true'
-network_scripts_deploy_triggers: 'true'
-network_scripts_drop_exists: 'false'
-network_scripts_ppp_secrets: 'true'
-network_scripts_global: []
-network_scripts_interfaces: []
+network_manager: []

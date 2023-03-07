@@ -1,6 +1,6 @@
 ---
 - ansible.builtin.include_tasks:
     file: "deploy_interface.yml"
-  loop: "{{ vars['network_interfaces'] | flatten(levels=1) }}"
+  loop: "{{ vars['network_manager_interfaces'] | flatten(levels=1) }}"
   loop_control:
     loop_var: "outer_item"

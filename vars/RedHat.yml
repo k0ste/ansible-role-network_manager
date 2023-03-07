@@ -1,6 +1,5 @@
 ---
-network_scripts_service: 'network'
-network_scripts_sysconfig_dest: '/etc/sysconfig'
-network_scripts_ppp_dest: '/etc/ppp'
-network_scripts_triggers_ifcfg_dest: '/sbin'
-network_scripts_triggers_dispatcher_dest: '/etc/NetworkManager/dispatcher.d'
+network_manager_service: 'NetworkManager'
+network_manager_sysconfig_dest: '/etc/sysconfig'
+network_manager_ppp_dest: '/etc/ppp'
+network_manager_dest: '/etc/NetworkManager'

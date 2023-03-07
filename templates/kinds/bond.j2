@@ -1,5 +1,5 @@
-{% if item.bonding_options is defined and item.bonding_options != '' %}
-{% for k,v in item.bonding_options.items() %}
+{% if item['bonding_options'] is defined and item['bonding_options'] != '' %}
+{% for k,v in item['bonding_options'].items() %}
 {% if loop.first %}
 {{ 'BONDING_OPTS=\"' -}}
 {% endif %}

@@ -1,0 +1,32 @@
+{% if item['address'] is defined and item['address'] != '' %}
+{% if item['address'] is string and item['address'] |
+  ansible.utils.ipaddr('host/prefix') %}
+{{ 'IPADDR=\"' + item['address'] | ansible.utils.ipaddr('address') + '\"' }}
+{{ 'PREFIX=\"' ~ item['address'] | ansible.utils.ipaddr('prefix') ~ '\"' }}
+{% elif item['address'] is sequence %}
+{% for addr in item['address'] %}
+{% if addr | ansible.utils.ipaddr('host/prefix') %}
+{{ 'IPADDR' ~ loop.index ~ '=\"' + addr | ansible.utils.ipaddr('address') +
+  '\"' }}
+{{ 'PREFIX' ~ loop.index ~ '=\"' ~ addr | ansible.utils.ipaddr('prefix') ~
+  '\"' }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if item['gateway'] is defined and item['gateway'] |
+  ansible.utils.ipaddr('host') %}
+{{ 'GATEWAY=\"' + item['gateway'] + '\"' }}
+{% endif %}
+{% if item['dns'] is defined and item['dns'] != '' %}
+{% if item['dns'] is string and item['address'] |
+  ansible.utils.ipaddr('host') %}
+{{ 'DNS=\"' + item['dns'] + '\"' }}
+{% elif item['dns'] is sequence %}
+{% for addr in item['dns'] %}
+{% if addr | ansible.utils.ipaddr('host') %}
+{{ 'DNS' ~ loop.index ~ '=\"' + addr | ansible.utils.ipaddr('address') + '\"' }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}

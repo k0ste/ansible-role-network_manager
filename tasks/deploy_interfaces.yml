@@ -1,0 +1,24 @@
+---
+- ansible.builtin.import_tasks:
+    file: "interface_executor.yml"
+- ansible.builtin.include_tasks:
+    file: "deploy_ppp.yml"
+  when:
+    - "vars['network_manager_ppp_secrets'] is defined"
+    - "vars['network_manager_ppp_secrets'] != []"
+- ansible.builtin.include_tasks:
+    file: "deploy_dispatcher.yml"
+  vars:
+    trigger_type: 'up'
+  when:
+    - "(vars['network_manager_ifup_local'] is defined and
+      vars['network_manager_ifup_local'] != []) or
+      (vars['network_manager_ifup_global'] is defined and
+      vars['network_manager_ifup_global'] != [])"
+- ansible.builtin.include_tasks:
+    file: "deploy_dispatcher.yml"
+  vars:
+    trigger_type: 'down'
+  when:
+    - "vars['network_manager_ifdown_local'] is defined"
+    - "vars['network_manager_ifdown_local'] != []"

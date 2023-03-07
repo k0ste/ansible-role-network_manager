@@ -1,0 +1,96 @@
+{{ '## NetworkManager.conf' }}
+{{ '# ' + ansible_managed }}
+{{ '# ' + 'Do not edit manually' }}
+
+{% for nm in vars['network_manager_settings'] %}
+{% if nm['main'] is defined and nm['main'] != '' %}
+{% for m in nm['main'] %}
+{% if loop.first %}
+{{ '[main]' }}
+{% endif %}
+{% if m['plugins'] is defined and m['plugins'] != '' %}
+{% if m['plugins'] is string %}
+{{ 'plugins=' + m['plugins'] }}
+{% elif m['plugins'] is sequence %}
+{% for mp in m['plugins'] %}
+{% if mp.action is defined and mp.action in ['+', '-'] %}
+{% if mp.name is defined and mp.name != '' %}
+{{ 'plugins' + mp.action + '=' + mp.name }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% if m['auth_polkit'] is defined and m['auth_polkit'] in ['true', 'false'] %}
+{{ 'auth-polkit=' + m['auth_polkit'] }}
+{% endif %}
+{% if m['dhcp'] is defined and m['dhcp'] in ['dhclient', 'dhcpcd',
+  'internal'] %}
+{{ 'dhcp=' + m['dhcp'] }}
+{% endif %}
+{% if m['no_auto_default'] is defined and m['no_auto_default'] != '' %}
+{{ 'no-auto-default=' + m['no_auto_default'] }}
+{% endif %}
+{% if m['assume_ipv6ll_only'] is defined and m['assume_ipv6ll_only'] != '' %}
+{{ 'assume-ipv6ll-only=' + m['assume_ipv6ll_only'] }}
+{% endif %}
+{% if m['hostname_mode'] is defined and m['hostname_mode'] in ['default',
+  'dhcp', 'none'] %}
+{{ 'hostname-mode=' + m['hostname_mode'] }}
+{% endif %}
+{% if m['dns'] is defined and m['dns'] in ['default', 'dnsmasq',
+  'systemd-resolved', 'none'] %}
+{{ 'dns=' + m['dns'] }}
+{% endif %}
+{% if m['rc_manager'] is defined and m['rc_manager'] in ['auto', 'symlink',
+  'file', 'resolvconf', 'netconfig', 'unmanaged'] %}
+{{ 'rc-manager=' + m['rc_manager'] }}
+{% endif %}
+{% if m['systemd_resolved'] is defined and m['systemd_resolved'] in ['true',
+  'false'] %}
+{{ 'systemd-resolved=' + m['systemd_resolved'] }}
+{% endif %}
+{% if m['debug'] is defined and m['debug'] != '' %}
+{% if m['debug'] is string %}
+{{ 'debug=' + m['debug'] }}
+{% elif m['debug'] is sequence %}
+{{ 'debug=' + m['debug'] | join(",") }}
+{% endif %}
+{% endif %}
+{% if m['autoconnect_retries_default'] is defined and
+  m['autoconnect_retries_default'] != '' %}
+{{ 'autoconnect-retries-default=' ~ m['autoconnect_retries_default'] }}
+{% endif %}
+{% if m['slaves_order'] is defined and m['slaves_order'] != '' %}
+{{ 'slaves-order=' ~ m['slaves_order'] }}
+{% endif %}
+{% if m['firewall_backend'] is defined and m['firewall_backend'] in ['iptables',
+  'nftables', 'none'] %}
+{{ 'firewall-backend=' + m['firewall_backend'] }}
+{% endif %}
+{% if m['iwd_config_path'] is defined and m['iwd_config_path'] != '' %}
+{{ 'iwd-config-path=' + m['iwd_config_path'] }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if nm['logging'] is defined and nm['logging'] != '' %}
+{% for l in nm['logging'] %}
+{% if loop.first %}
+{{ '[logging]' }}
+{% endif %}
+{% if l['level'] is defined and l['level'] in ['OFF', 'ERR', 'WARN', 'INFO',
+  'DEBUG', 'TRACE'] %}
+{{ 'level=' + l['level'] }}
+{% endif %}
+{% if l['domains'] is defined and l['domains'] != '' %}
+{{ 'domains=' + l['domains'] }}
+{% endif %}
+{% if l['backend'] is defined and l['backend'] in ['syslog', 'journal'] %}
+{{ 'backend=' + l['backend'] }}
+{% endif %}
+{% if l['audit'] is defined and l['audit'] in ['true', 'false'] %}
+{{ 'audit=' + l['audit'] }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

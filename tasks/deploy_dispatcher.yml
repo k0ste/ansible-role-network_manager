@@ -1,0 +1,10 @@
+---
+- name: "{{ 'NetworkManager | Deploy dispatcher.d/' + vars['trigger_type'] }}"
+  ansible.builtin.template:
+    src: "{{ 'dispatcher/' + vars['trigger_type'] + '.j2' }}"
+    dest: "{{ hostvars[inventory_hostname]['network_manager_dest'] +
+      '/dispatcher.d/70-ansible_' + vars['trigger_type'] }}"
+    group: "root"
+    owner: "root"
+    force: "yes"
+    mode: "0755"

@@ -1,9 +1,9 @@
-{% if item.arp is defined and item.arp in ['yes', 'no'] %}
-{{ 'ARP=\"' + item.arp_check + '\"' }}
+{% if item['arp'] is defined and item['arp'] in ['yes', 'no'] %}
+{{ 'ARP=\"' + item['arp_check'] + '\"' }}
 {% endif %}
-{% if item.bridge is defined and item.bridge != '' %}
-{{ 'BRIDGE=\"' ~ item.bridge ~ '\"' }}
+{% if item['bridge'] is defined and item['bridge'] != '' %}
+{{ 'BRIDGE=\"' ~ item['bridge'] ~ '\"' }}
 {% endif %}
-{% if item.link_delay is defined and item.link_delay != '' %}
-{{ 'LINKDELAY=\"' ~ item.link_delay ~ '\"' }}
+{% if item['link_delay'] is defined and item['link_delay'] != '' %}
+{{ 'LINKDELAY=\"' ~ item['link_delay'] ~ '\"' }}
 {% endif %}

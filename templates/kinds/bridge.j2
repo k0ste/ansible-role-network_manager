@@ -1,0 +1,19 @@
+{% if item['stp'] is defined and item['stp'] in ['on', 'off'] %}
+{{ 'STP=\"' + item['stp'] + '\"' }}
+{% endif %}
+{% if item['delay'] is defined and item['delay'] != '' %}
+{{ 'DELAY=\"' ~ item['delay'] ~ '\"' }}
+{% endif %}
+{% if item['bridging_opts'] is defined and item['bridging_opts'] != '' %}
+{% for k,v in item['bridging_opts'].items() %}
+{% if loop.first %}
+{{ 'BRIDGING_OPTS=\"' -}}
+{% endif %}
+{{ k + '=' + v -}}
+{% if loop.last %}
+{{ '\"' }}
+{% else %}
+{{ ' ' -}}
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,5 @@
+{# SLAVE-MASTER is mandatory, so error here if not defined #}
+{% if item['slave'] in ['yes', 'no'] %}
+{{ 'SLAVE=\"' + item['slave'] + '\"' }}
+{% endif %}
+{{ 'MASTER=\"' + item['master'] + '\"' }}

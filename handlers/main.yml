@@ -1,23 +1,15 @@
 ---
-- name: Enable network service
+- name: Restart NetworkManager
   ansible.builtin.service:
-    name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
-    enabled: "yes"
-  when:
-    - "(hostvars[inventory_hostname]['network_scripts_restart'] is defined and
-      hostvars[inventory_hostname]['network_scripts_restart'] == 'true')"
-    - "(hostvars[inventory_hostname]['network_scripts_triggers_type'] is
-      defined and
-      hostvars[inventory_hostname]['network_scripts_triggers_type'] ==
-      'ifcfg')"
-- name: Restart network service
-  ansible.builtin.service:
-    name: "{{ hostvars[inventory_hostname]['network_scripts_service'] }}"
+    name: "{{ hostvars[inventory_hostname]['network_manager_service'] }}"
     state: "restarted"
   when:
-    - "(hostvars[inventory_hostname]['network_scripts_restart'] is defined and
-      hostvars[inventory_hostname]['network_scripts_restart'] == 'true')"
-    - "(hostvars[inventory_hostname]['network_scripts_triggers_type'] is
-      defined and
-      hostvars[inventory_hostname]['network_scripts_triggers_type'] ==
-      'ifcfg')"
+    - "hostvars[inventory_hostname]['network_manager'] is defined"
+    - "hostvars[inventory_hostname]['network_manager'] != ''"
+    - "hostvars[inventory_hostname]['network_manager'] |
+       community.general.json_query(vars['network_manager_restart']) is
+       defined"
+    - "hostvars[inventory_hostname]['network_manager'] |
+       community.general.json_query(vars['network_manager_restart']) == 'true'"
+  vars:
+    network_manager_restart: "[] | map(&restart || 'false', @) | [0]"

@@ -1,0 +1,26 @@
+---
+- name: "NetworkManager | Deploy NetworkManager.conf"
+  ansible.builtin.template:
+    src: "NetworkManager.j2"
+    dest: "{{ hostvars[inventory_hostname]['network_manager_dest'] +
+      '/NetworkManager.conf' }}"
+    group: "root"
+    owner: "root"
+    force: "yes"
+    mode: "0644"
+  notify:
+    - "Restart NetworkManager"
+- name: "NetworkManager | Enable NetworkManager service"
+  ansible.builtin.systemd:
+    name: "{{ hostvars[inventory_hostname]['network_manager_service'] }}"
+    enabled: "yes"
+  when:
+    - "hostvars[inventory_hostname]['network_manager'] is defined"
+    - "hostvars[inventory_hostname]['network_manager'] != ''"
+    - "hostvars[inventory_hostname]['network_manager'] |
+       community.general.json_query(vars['network_manager_enable']) is
+       defined"
+    - "hostvars[inventory_hostname]['network_manager'] |
+       community.general.json_query(vars['network_manager_enable']) == 'true'"
+  vars:
+    network_manager_enable: "[] | map(&enable || 'false', @) | [0]"
