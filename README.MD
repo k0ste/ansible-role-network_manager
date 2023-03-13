@@ -1,6 +1,7 @@
 # network_manager
 
-Role for deploy profiles for profile-based NetworkManager. Currently works in `networks-scripts` files format via `ifcfg-rh` NetworkManager plugin
+Role for deploy profiles for profile-based NetworkManager. Currently works in
+`networks-scripts` files format via `ifcfg-rh` NetworkManager plugin
 
 ## Requirements for usage
 
@@ -252,9 +253,6 @@ network_manager:
         miimon: '100'
         xmit_hash_policy: '2'
         lacp_rate: '1'
-    - interface: 'imq0'
-      onboot: 'yes'
-      bootproto: 'none'
     - interface: 'br1'
       type: 'Bridge'
 # Sets the bridge's 'bridge forward delay' (in seconds).
@@ -268,7 +266,7 @@ network_manager:
       stp: 'off'
       onboot: 'yes'
       bootproto: 'none'
-# List of bridging options for either the bridge device, or the port device.
+# List of bridging options for either the bridge device, or the port device
       bridging_opts:
         hello_time: '200'
         priority: '65535'
@@ -276,12 +274,14 @@ network_manager:
       interface: 'eth0'
       type: 'Ethernet'
       onboot: 'yes'
+# Enable LLDP stack support or not
+      lldp: 'yes'
       bootproto: 'none'
 # Specifies device as a slave.
       slave: 'yes'
 # Specifies master device to bind to.
       master: 'bond0'
-  # Task executed when interface comes up
+  # Task will be executed when interface go to the 'up' state
       ifup_local:
         - 'ip link set dev eth0 txqueuelen 10000'
         - 'ethtool -K eth0 gso off tso off gro off tx off rx off sg off'
@@ -340,14 +340,14 @@ network_manager:
       type: 'Vlan'
       vlan: 'yes'
 # If set, the ethernet device is not assigned an address. It is added to
-# the specified bridge device instead.
+# the specified bridge device instead
       bridge: 'br1'
 # Time that the system should pause after the specific interface is enabled.
 # This may be useful if one interface is connected to a switch which has
 # spanning tree enabled and must wait for STP to converge before the interface
-# should be considered usable.
+# should be considered usable
       link_delay: '3'
-# If 'yes' adds 'arp' flag to ip, for use with the ethertap device.
+# If 'yes' adds 'arp' flag to ip, for use with the ethertap device
       arp: 'no'
     - description: 'VLAN4'
       interface: 'vlan4'
@@ -362,10 +362,11 @@ network_manager:
 # up - the '-1' option is given to dhclient. If 'yes', then dhclient will keep
 # on trying to contact the dhcp server when it does not respond - no '-1' option
 # is given to dhclient. Note: this disables the automatic checking for the
-# presence of a link before starting dhclient.
+# presence of a link before starting dhclient
       dhcp_persistent: 'yes'
 # With this option set to 'yes', when a dhcp configured interface is brought
-# down with 'ifdown', the lease will be released. Otherwise, leases are not released.
+# down with 'ifdown', the lease will be released. Otherwise, leases are not
+# released
       dhcp_release: 'yes'
 # Tells to not obtain hostname from DHCP server in the ifup-post phase. This
 # option might be useful especially with static configuration of the interface.

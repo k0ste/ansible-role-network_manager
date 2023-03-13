@@ -1,6 +1,9 @@
 {% if item['arp'] is defined and item['arp'] in ['yes', 'no'] %}
 {{ 'ARP=\"' + item['arp_check'] + '\"' }}
 {% endif %}
+{% if item['lldp'] is defined and item['lldp'] in ['yes', 'no'] %}
+{{ 'LLDP=\"' + item['lldp'] + '\"' }}
+{% endif %}
 {% if item['bridge'] is defined and item['bridge'] != '' %}
 {{ 'BRIDGE=\"' ~ item['bridge'] ~ '\"' }}
 {% endif %}
