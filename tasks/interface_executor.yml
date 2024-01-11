@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.include_tasks:
+- name: "NetworkManager | Include network interface deployment tasks"
+  ansible.builtin.include_tasks:
     file: "deploy_interface.yml"
   loop: "{{ vars['network_manager_interfaces'] | flatten(levels=1) }}"
   loop_control:

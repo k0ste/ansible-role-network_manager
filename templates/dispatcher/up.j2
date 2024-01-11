@@ -7,13 +7,12 @@
   vars['network_manager_ifup_global'] != '' %}
 {{ vars['network_manager_ifup_global'] }}
 {% endif %}
-
 {% for t in vars['network_manager_interface_settings'] %}
 {% if t['ifup_local'] is defined and t['ifup_local'] != '' %}
-{{ 'if [ \"${1}\" = \"' ~ t['interface'] ~ '\" ] && [ \"${2}\" = \"up\" ]' }}
-{{  'then' }}
+{{ 'if [[ \"${1}\" = \"' ~ t['interface'] ~ '\" && \"${2}\" = \"up\" ]]' }}
+{{ '  then' }}
 {% for tt in t['ifup_local'] %}
-{{ tt }}
+{{ '    ' ~ tt }}
 {% endfor %}
 {{ 'fi' }}
 {% endif %}

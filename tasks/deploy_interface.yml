@@ -1,5 +1,5 @@
 ---
-- name: "NetworkManager | Deploy interfaces"
+- name: "NetworkManager | Deploy interface profile"
   ansible.builtin.template:
     src: "network-scripts.j2"
     dest: "{{ hostvars[inventory_hostname]['network_manager_sysconfig_dest'] +

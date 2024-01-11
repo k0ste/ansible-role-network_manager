@@ -1,9 +1,12 @@
 ---
-- ansible.builtin.import_tasks:
+- name: "NetworkManager | Include pre requisite tasks"
+  ansible.builtin.import_tasks:
     file: "pre_requisite.yml"
-- ansible.builtin.import_tasks:
+- name: "NetworkManager | Include NetworkManager deployment tasks"
+  ansible.builtin.import_tasks:
     file: "deploy.yml"
-- ansible.builtin.include_tasks:
+- name: "NetworkManager | Include NetworkManager interfaces deployment tasks"
+  ansible.builtin.include_tasks:
     file: "deploy_interfaces.yml"
   when:
     - "vars['network_manager_interfaces'] is defined"

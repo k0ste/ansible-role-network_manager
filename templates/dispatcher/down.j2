@@ -5,10 +5,10 @@
 
 {% for t in vars['network_manager_interface_settings'] %}
 {% if t['ifdown_local'] is defined and t['ifdown_local'] != '' %}
-{{ 'if [ \"${1}\" = \"' ~ t['interface'] ~ '\" ] && [ \"${2}\" = \"down\" ]' }}
-{{ 'then' }}
+{{ 'if [[ \"${1}\" = \"' ~ t['interface'] ~ '\" && \"${2}\" = \"down\" ]]' }}
+{{ '  then' }}
 {% for tt in t['ifdown_local'] %}
-{{ tt }}
+{{ '    ' ~ tt }}
 {% endfor %}
 {{ 'fi' }}
 {% endif %}

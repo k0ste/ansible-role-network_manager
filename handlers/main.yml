@@ -1,5 +1,5 @@
 ---
-- name: Restart NetworkManager
+- name: "Restart NetworkManager"
   ansible.builtin.service:
     name: "{{ hostvars[inventory_hostname]['network_manager_service'] }}"
     state: "restarted"
