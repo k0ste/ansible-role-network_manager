@@ -10,4 +10,6 @@
     file: "deploy_interfaces.yml"
   when:
     - "vars['network_manager_interfaces'] is defined"
+    - "vars['network_manager_interfaces'] != []"
     - "vars['network_manager_interfaces'] != ''"
+    - "vars['network_manager_interfaces'] != None"

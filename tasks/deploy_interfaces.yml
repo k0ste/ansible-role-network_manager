@@ -7,8 +7,9 @@
     file: "deploy_ppp.yml"
   when:
     - "vars['network_manager_ppp_secrets'] is defined"
-    - "vars['network_manager_ppp_secrets'] != ''"
     - "vars['network_manager_ppp_secrets'] != []"
+    - "vars['network_manager_ppp_secrets'] != ''"
+    - "vars['network_manager_ppp_secrets'] != None"
 - name: "NetworkManager | Include NetworkManager-dispatcher tasks [for up
     state]"
   ansible.builtin.include_tasks:
@@ -28,5 +29,6 @@
     trigger_type: 'down'
   when:
     - "vars['network_manager_ifdown_local'] is defined"
-    - "vars['network_manager_ifdown_local'] != ''"
     - "vars['network_manager_ifdown_local'] != []"
+    - "vars['network_manager_ifdown_local'] != ''"
+    - "vars['network_manager_ifdown_local'] != None"
